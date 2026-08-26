@@ -1,0 +1,13 @@
+{
+  "name": "playfinder-api",
+  "version": "1.0.0",
+  "description": "PlayFinder API — Azure Functions. Holds the Anthropic key server-side.",
+  "main": "src/functions/*.js",
+  "type": "module",
+  "scripts": {
+    "start": "func start"
+  },
+  "dependencies": {
+    "@azure/functions": "^4.5.1"
+  }
+}

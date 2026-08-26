@@ -1,0 +1,36 @@
+// The source coverage checklist — every sanctioning organization.
+// This list IS the completeness guarantee: every event belongs to one of these.
+// `scan` is the query the scanner uses for that source.
+
+// Every organization that sanctions junior golf in AL/FL/MS.
+// Deep scan runs one web search per relevant source; the coverage
+// panel renders this list so gaps are visible.
+export const SOURCES = [
+  { name: "Emerald Coast Junior Golf Tour", url: "https://www.emeraldcoastjuniorgolftour.com", states: ["FL"], cat: "Panhandle regional junior tour (Destin/Fort Walton/Panama City area)", scan: "Emerald Coast Junior Golf Tour schedule Destin Florida panhandle" },
+  { name: "USGA Championship Qualifying", url: "https://www.usga.org/championships.html", states: ["all"], cat: "U.S. Junior Amateur & U.S. Girls' Junior sectional qualifying — the top elite pathway", scan: "US Junior Amateur and US Girls Junior qualifying sites Alabama Florida Mississippi" },
+  { name: "First Tee Chapters (Gulf Coast)", url: "https://firsttee.org/chapter-locator/", states: ["all"], cat: "Chapter tournaments + national championship pathway; low-cost entry point", scan: "First Tee chapter junior golf tournaments Alabama Florida Mississippi" },
+  { name: "State High School Associations (AHSAA / FHSAA / MHSAA)", url: "https://www.ahsaa.com", states: ["all"], cat: "School-team golf and state championships — a major competitive track for ages 14–18", scan: "AHSAA FHSAA MHSAA high school golf state championship schedule" },
+  { name: "IJGT (International Junior Golf Tour)", url: "https://www.ijgt.com", states: ["FL"], cat: "National/international tour with Florida events", scan: "International Junior Golf Tour IJGT Florida schedule" },
+  { name: "North Florida PGA Junior Tour", url: "https://nfpga.pga.com", states: ["FL"], cat: "Section junior tour covering north FL & the Panhandle", scan: "North Florida PGA junior tour schedule" },
+  { name: "South Florida PGA Junior Tour", url: "https://sfpga.pga.com", states: ["FL"], cat: "Section junior tour covering central & south FL", scan: "South Florida PGA junior golf tour schedule" },
+  { name: "Junior Golf Scoreboard", url: "https://www.juniorgolfscoreboard.com", states: ["all"], cat: "Aggregator — lists nearly every ranked junior event nationally, searchable by state", scan: "Junior Golf Scoreboard upcoming junior golf tournaments" },
+  { name: "SJGT (Southeastern Junior Golf Tour)", url: "https://www.sjgt.com/schedule.aspx", states: ["AL", "MS"], cat: "Ranked 36-hole tour across the Southeast, HQ'd in Alabama", scan: "SJGT Southeastern Junior Golf Tour schedule" },
+  { name: "HJGT (Hurricane Junior Golf Tour)", url: "https://hjgt.org/schedule/", states: ["all"], cat: "Ranked national tour with dense FL/AL schedules, divisions from age 8", scan: "Hurricane Junior Golf Tour schedule Alabama Florida" },
+  { name: "FSGA / Florida Junior Tour", url: "https://www.fsga.org/juniors", states: ["FL"], cat: "Florida's state-association junior circuit and state championships", scan: "FSGA Florida Junior Tour FJT schedule" },
+  { name: "Alabama Golf Association", url: "https://www.alabamagolf.org/championships", states: ["AL"], cat: "Alabama state junior championships (boys' & girls')", scan: "Alabama Golf Association junior championship schedule" },
+  { name: "Mississippi Golf Association", url: "https://www.msgolf.org", states: ["MS"], cat: "Mississippi state junior championships", scan: "Mississippi Golf Association state junior championship schedule" },
+  { name: "US Kids Golf", url: "https://www.uskidsgolf.com/tournaments/local-tours/find-a-tour", states: ["all"], cat: "Local tours from age 6, state invitationals, path to Pinehurst Worlds", scan: "US Kids Golf local tour schedule Alabama Florida Mississippi" },
+  { name: "Dixie Section PGA", url: "https://dixie.pga.com", states: ["AL"], cat: "Alabama PGA section junior series + Junior PGA Championship qualifying", scan: "Dixie Section PGA junior tour schedule" },
+  { name: "Gulf States PGA", url: "https://gulfstates.pga.com", states: ["MS"], cat: "Mississippi/Louisiana PGA section junior series + qualifying", scan: "Gulf States PGA section junior golf schedule" },
+  { name: "North & South Florida PGA Junior Tours", url: "https://www.pga.com", states: ["FL"], cat: "Florida's two PGA section junior tours", scan: "North Florida PGA junior tour and South Florida PGA junior tour schedule" },
+  { name: "FCWT Junior Golf Tour", url: "https://www.fcwtgolf.com", states: ["FL"], cat: "College-prep tour, Florida-heavy schedule, divisions from age 9", scan: "FCWT junior golf tour Florida schedule" },
+  { name: "PKB Girls Golf Tour", url: "https://www.pkbgt.org", states: ["all"], cat: "Largest girls-only ranked tour, Southeast schedule", scan: "PKB girls golf tour Southeast schedule" },
+  { name: "AJGA", url: "https://www.ajga.org/schedule", states: ["all"], cat: "Elite national circuit; filter schedule by state", scan: "AJGA tournament schedule Alabama Florida Mississippi" },
+  { name: "PGA Jr. League", url: "https://www.pgajrleague.com", states: ["all"], cat: "Team league with All-Star → National Championship pathway", scan: "PGA Jr League Alabama Florida Mississippi registration" },
+  { name: "Drive, Chip & Putt", url: "https://www.drivechipandputt.com/registration", states: ["all"], cat: "Free national skills pathway (ages 7–15) ending at Augusta", scan: "Drive Chip and Putt local qualifiers Alabama Florida Mississippi" },
+  { name: "NB3 Junior Golf National Championship", url: "https://www.nb3jgnc.com", states: ["all"], cat: "Regional qualifiers with divisions from age 8, televised final", scan: "NB3 junior golf national championship regional qualifier schedule" },
+  { name: "Optimist Junior Golf", url: "https://www.optimist.org/member/junior-golf", states: ["all"], cat: "District qualifiers → international finals at PGA National", scan: "Optimist international junior golf championship district qualifiers" },
+  { name: "Press Thornton Future Masters", url: "https://www.futuremasters.org", states: ["AL"], cat: "Elite boys' invitational, Dothan CC every June", scan: "Press Thornton Future Masters Dothan dates entry" },
+  { name: "Junior Orange Bowl", url: "https://jrorangebowl.org", states: ["FL"], cat: "Elite international invitational, Miami, winter", scan: "Junior Orange Bowl international golf championship dates" },
+  { name: "AmateurGolf.com Junior Listings", url: "https://www.amateurgolf.com", states: ["all"], cat: "Aggregator of amateur & junior schedules — catches one-off events", scan: "amateurgolf.com junior golf tournament schedule Southeast" },
+];
