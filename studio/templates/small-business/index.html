@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{NAME}} — {{TAGLINE}}</title>
+  <meta name="description" content="{{DESCRIPTION}}" />
+  <meta property="og:title" content="{{NAME}}" />
+  <meta property="og:description" content="{{DESCRIPTION}}" />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="{{PRIMARY}}" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Inter:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>:root { --brand: {{PRIMARY}}; --accent: {{ACCENT}}; }</style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav">
+    <div class="wrap nav__inner">
+      <a class="brand" href="./"><span class="brand__mark" aria-hidden="true">{{INITIAL}}</span>{{NAME}}</a>
+      <nav aria-label="Main">
+        <ul class="nav__links">
+          <li><a href="#services">Services</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#visit">Visit</a></li>
+        </ul>
+      </nav>
+      <a class="btn btn--small" href="tel:{{PHONE_RAW}}">Call {{PHONE}}</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="wrap hero__grid">
+        <div>
+          <p class="eyebrow">{{CITY}}</p>
+          <h1>{{TAGLINE}}</h1>
+          <p class="lede">{{DESCRIPTION}}</p>
+          <div class="actions">
+            <a class="btn" href="#contact">Get in touch</a>
+            <a class="btn btn--ghost" href="#services">See what we do</a>
+          </div>
+        </div>
+        <aside class="card hero__card" aria-label="At a glance">
+          <h2 class="card__title">This week</h2>
+          <dl class="hours">
+            <div><dt>Mon – Fri</dt><dd>8:00 – 6:00</dd></div>
+            <div><dt>Saturday</dt><dd>9:00 – 4:00</dd></div>
+            <div><dt>Sunday</dt><dd>Closed</dd></div>
+          </dl>
+          <p class="card__note">Same-week appointments usually available.</p>
+          <a class="link" href="tel:{{PHONE_RAW}}">{{PHONE}} →</a>
+        </aside>
+      </div>
+    </section>
+
+    <section id="services" class="section">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="eyebrow">Services</p>
+          <h2>What we can do for you</h2>
+        </header>
+        <div class="grid grid--3">
+          <article class="card">
+            <span class="card__num">01</span>
+            <h3>Signature service</h3>
+            <p>The thing customers come back for. One or two sentences on the outcome they get, not the process.</p>
+          </article>
+          <article class="card">
+            <span class="card__num">02</span>
+            <h3>Second service</h3>
+            <p>Name the problem it solves in plain words. Mention who it is for and what it typically costs.</p>
+          </article>
+          <article class="card">
+            <span class="card__num">03</span>
+            <h3>Third service</h3>
+            <p>Something seasonal, a package, or an add-on. Keep each card about the same length.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section section--tint">
+      <div class="wrap split">
+        <div>
+          <p class="eyebrow">About</p>
+          <h2>Local, independent, and here for the long run</h2>
+          <p>Tell the short version of the story: who runs it, why it started, and what is different about how you work. Two short paragraphs beat one long one.</p>
+          <p>Close with a concrete detail people remember — a year, a neighborhood, a guarantee.</p>
+        </div>
+        <ul class="stats" aria-label="By the numbers">
+          <li><strong>10+</strong><span>years in {{CITY}}</span></li>
+          <li><strong>500+</strong><span>happy customers</span></li>
+          <li><strong>4.9★</strong><span>average review</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="eyebrow">Kind words</p>
+          <h2>What customers say</h2>
+        </header>
+        <div class="grid grid--3">
+          <figure class="quote"><blockquote>“Replace with a real review. Short and specific works best.”</blockquote><figcaption>Customer name</figcaption></figure>
+          <figure class="quote"><blockquote>“Ask permission before quoting someone, and use first name + last initial.”</blockquote><figcaption>Customer name</figcaption></figure>
+          <figure class="quote"><blockquote>“A review that mentions a specific result is worth three generic ones.”</blockquote><figcaption>Customer name</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="visit" class="section section--tint">
+      <div class="wrap split">
+        <div>
+          <p class="eyebrow">Visit</p>
+          <h2>Find us in {{CITY}}</h2>
+          <p class="address">123 Main Street<br />{{CITY}}</p>
+          <a class="btn btn--ghost" href="https://maps.google.com/?q={{CITY}}" rel="noopener">Open in Maps</a>
+        </div>
+        <dl class="hours hours--large">
+          <div><dt>Monday – Friday</dt><dd>8:00 am – 6:00 pm</dd></div>
+          <div><dt>Saturday</dt><dd>9:00 am – 4:00 pm</dd></div>
+          <div><dt>Sunday</dt><dd>Closed</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="wrap split">
+        <div>
+          <p class="eyebrow">Contact</p>
+          <h2>Tell us what you need</h2>
+          <p>We reply within one business day. Prefer to talk? Call <a class="link" href="tel:{{PHONE_RAW}}">{{PHONE}}</a> or email <a class="link" href="mailto:{{EMAIL}}">{{EMAIL}}</a>.</p>
+        </div>
+        <form class="form card" data-endpoint="{{FORM_ENDPOINT}}" data-email="{{EMAIL}}">
+          <label>Name<input name="name" autocomplete="name" required /></label>
+          <label>Email<input name="email" type="email" autocomplete="email" required /></label>
+          <label>How can we help?<textarea name="message" rows="4" required></textarea></label>
+          <button class="btn" type="submit">Send message</button>
+          <p class="form__status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <span>© {{YEAR}} {{NAME}} · {{CITY}}</span>
+      <span><a href="mailto:{{EMAIL}}">{{EMAIL}}</a> · <a href="tel:{{PHONE_RAW}}">{{PHONE}}</a></span>
+    </div>
+  </footer>
+
+  <script src="site.js" defer></script>
+</body>
+</html>

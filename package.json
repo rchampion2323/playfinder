@@ -2,12 +2,17 @@
   "name": "playfinder",
   "private": true,
   "version": "0.1.0",
-  "description": "PlayFinder — Junior Golf & Sports Directory",
+  "description": "PlayFinder \u2014 Junior Golf & Sports Directory",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "studio:new": "node studio/scripts/new-site.mjs",
+    "studio:validate": "node studio/scripts/validate.mjs",
+    "studio:serve": "node studio/scripts/serve.mjs",
+    "studio:build": "node studio/scripts/build.mjs",
+    "studio:status": "node studio/scripts/status.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",

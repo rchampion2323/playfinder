@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{NAME}}</title>
+  <meta name="description" content="{{DESCRIPTION}}" />
+  <meta property="og:title" content="{{NAME}}" />
+  <meta property="og:description" content="{{DESCRIPTION}}" />
+  <meta property="og:type" content="profile" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>:root { --brand: {{PRIMARY}}; --accent: {{ACCENT}}; }</style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="page">
+    <header class="top">
+      <a class="mark" href="./" aria-label="{{NAME}} home">{{INITIAL}}</a>
+      <nav aria-label="Main"><a href="#work">Work</a><a href="#now">Now</a><a href="#contact">Contact</a></nav>
+    </header>
+
+    <main id="main">
+      <section class="intro">
+        <p class="kicker">{{CITY}}</p>
+        <h1>{{NAME}} <em>{{TAGLINE}}</em></h1>
+        <p class="lede">{{DESCRIPTION}}</p>
+        <p class="links">
+          <a href="mailto:{{EMAIL}}">Email</a>
+          <a href="https://github.com/" rel="me noopener">GitHub</a>
+          <a href="https://www.linkedin.com/" rel="me noopener">LinkedIn</a>
+        </p>
+      </section>
+
+      <section id="work" class="block">
+        <h2>Selected work</h2>
+        <ol class="work">
+          <li>
+            <a class="work__item" href="#">
+              <span class="work__year">{{YEAR}}</span>
+              <span class="work__body"><strong>Project name</strong><span>One line on what it is and the result it produced.</span></span>
+              <span class="work__arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>
+          <li>
+            <a class="work__item" href="#">
+              <span class="work__year">{{YEAR}}</span>
+              <span class="work__body"><strong>Another project</strong><span>Lead with the outcome. Link to a live site, write-up, or repo.</span></span>
+              <span class="work__arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>
+          <li>
+            <a class="work__item" href="#">
+              <span class="work__year">Earlier</span>
+              <span class="work__body"><strong>Something you're proud of</strong><span>Three to six entries is plenty. Cut anything you'd hesitate to discuss.</span></span>
+              <span class="work__arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>
+        </ol>
+      </section>
+
+      <section id="now" class="block block--split">
+        <h2>Now</h2>
+        <div>
+          <p>What you're focused on this season — the project, the question you're chewing on, what you're learning. Update it every few months; a dated "now" section signals the site is alive.</p>
+          <p class="muted">Updated {{YEAR}}</p>
+        </div>
+      </section>
+
+      <section id="contact" class="block block--split">
+        <h2>Say hello</h2>
+        <div>
+          <p>Best way to reach me is <a class="em" href="mailto:{{EMAIL}}">{{EMAIL}}</a>. I read everything and reply to most things within a few days.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">© {{YEAR}} {{NAME}}</footer>
+  </div>
+</body>
+</html>

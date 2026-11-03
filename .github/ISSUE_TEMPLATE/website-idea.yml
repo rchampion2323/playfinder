@@ -1,0 +1,64 @@
+name: Website idea
+description: Drop a site idea into the Studio funnel — personal project or small business.
+title: "[Idea] "
+labels: ["idea"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Rough is fine. Fill in what you know; the agent will ask about the rest.
+        To have Claude turn this into a brief and a first draft, comment **@claude build this** after submitting.
+  - type: dropdown
+    id: for
+    attributes:
+      label: Who is it for?
+      options: [Me (personal), A small business / client, Testing a product idea]
+    validations: { required: true }
+  - type: input
+    id: name
+    attributes:
+      label: Name of the business, person, or idea
+      placeholder: Gulf Breeze Bakery
+    validations: { required: true }
+  - type: textarea
+    id: pitch
+    attributes:
+      label: The idea in a few sentences
+      description: What is it, who is it for, and what should a visitor do after landing on the site?
+    validations: { required: true }
+  - type: dropdown
+    id: goal
+    attributes:
+      label: Main goal of the site
+      options: [Get calls / bookings, Show work / portfolio, Collect waitlist signups, Share information, Sell something, Not sure yet]
+  - type: input
+    id: audience
+    attributes:
+      label: Who will visit it?
+      placeholder: Parents in Pensacola looking for weekend cake orders
+  - type: textarea
+    id: content
+    attributes:
+      label: Content you already have
+      description: Services, prices, hours, address, phone, email, reviews, logo/colors, photos, links to social pages or an old site.
+  - type: input
+    id: inspiration
+    attributes:
+      label: Sites or styles you like
+      placeholder: Links, or words like "warm and rustic", "clean and modern"
+  - type: checkboxes
+    id: where
+    attributes:
+      label: Where should it be hosted?
+      options:
+        - label: Azure Static Web Apps (own URL, supports custom domain, preview links for review)
+        - label: GitHub Pages (simplest, shared rchampion2323.github.io address)
+  - type: input
+    id: domain
+    attributes:
+      label: Custom domain (if any)
+      placeholder: gulfbreezebakery.com
+  - type: input
+    id: deadline
+    attributes:
+      label: Deadline or launch date
