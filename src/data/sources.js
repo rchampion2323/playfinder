@@ -1,10 +1,6 @@
-// The source coverage checklist — every sanctioning organization.
-// This list IS the completeness guarantee: every event belongs to one of these.
-// `scan` is the query the scanner uses for that source.
-
 // Every organization that sanctions junior golf in AL/FL/MS.
-// Deep scan runs one web search per relevant source; the coverage
-// panel renders this list so gaps are visible.
+// The site lists these under "Tours & ages"; scanner/sources.js decides which
+// ones the daily pull reads and how.
 export const SOURCES = [
   { name: "Emerald Coast Junior Golf Tour", url: "https://www.emeraldcoastjuniorgolftour.com", states: ["FL"], cat: "Panhandle regional junior tour (Destin/Fort Walton/Panama City area)", scan: "Emerald Coast Junior Golf Tour schedule Destin Florida panhandle" },
   { name: "USGA Championship Qualifying", url: "https://www.usga.org/championships.html", states: ["all"], cat: "U.S. Junior Amateur & U.S. Girls' Junior sectional qualifying — the top elite pathway", scan: "US Junior Amateur and US Girls Junior qualifying sites Alabama Florida Mississippi" },

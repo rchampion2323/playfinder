@@ -1,0 +1,105 @@
+# Daily tournament pull.
+#
+# Reads every tour's published schedule with Claude (scanner/pull.js), checks
+# each tournament, commits public/data/tournaments.json, then redeploys the
+# site. Anything unusual is held back and listed in a "Tournaments to review"
+# issue instead of going live.
+#
+# Needs the repo secret ANTHROPIC_API_KEY. Optional repo variable SCAN_MODEL
+# (default claude-opus-5-5; claude-haiku-5-5 is far cheaper).
+#
+# Run it by hand: Actions → "Pull tournaments" → Run workflow. Running it on a
+# branch other than main commits the data to that branch (handy for filling a
+# pull request's preview with real data) and skips the production deploy.
+name: Pull tournaments
+
+on:
+  schedule:
+    - cron: "23 10 * * *" # every day, ~4:23 am Central
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "Only these sources (comma-separated ids, e.g. hjgt,sjgt). Blank = all."
+        required: false
+        default: ""
+
+permissions:
+  contents: write  # commit the refreshed data file
+  actions: write   # start the site deploy workflow
+  issues: write    # open/update the review issue
+
+concurrency:
+  group: pull-tournaments-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+
+      - name: Pull schedules
+        id: pull
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SCAN_MODEL: ${{ vars.SCAN_MODEL }}
+          ONLY: ${{ inputs.only }}
+        run: |
+          if [ -z "$ANTHROPIC_API_KEY" ]; then
+            echo "::warning::ANTHROPIC_API_KEY secret is not set — skipping the pull."
+            echo "skipped=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          [ -z "$SCAN_MODEL" ] && unset SCAN_MODEL
+          node scanner/pull.js ${ONLY:+--only=$ONLY}
+          cat scanner/output/summary.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Commit data
+        id: commit
+        if: steps.pull.outputs.skipped != 'true'
+        run: |
+          git add public/data/tournaments.json scanner/geocache.json
+          if git diff --cached --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+          git config user.name "playfinder-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "data: tournament pull $(date -u +%F)"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      # Pushes made with the workflow token don't trigger other workflows, so
+      # start the Azure deploy explicitly (production = main only).
+      - name: Deploy site
+        if: steps.commit.outputs.changed == 'true' && github.ref_name == 'main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run azure-static-web-apps-victorious-cliff-0372cbf10.yml --ref main
+
+      - name: Review issue
+        if: steps.pull.outputs.skipped != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          held=$(node -e "console.log(require('./scanner/output/held.json').length)")
+          title="Tournaments to review"
+          existing=$(gh issue list --state open --search "\"$title\" in:title" --json number --jq '.[0].number')
+          if [ "$held" = "0" ]; then
+            [ -n "$existing" ] && gh issue close "$existing" --comment "Nothing held in the latest pull."
+            exit 0
+          fi
+          body="$(cat scanner/output/summary.md)
+
+          _Updated by the daily pull. Tell Claude which to approve or hide, or edit \`scanner/review.json\`._"
+          if [ -n "$existing" ]; then
+            gh issue edit "$existing" --body "$body"
+          else
+            gh issue create --title "$title" --body "$body"
+          fi

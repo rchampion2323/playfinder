@@ -4,3 +4,4 @@ studio/.out/
 .DS_Store
 *.log
 local.settings.json
+scanner/output/
