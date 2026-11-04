@@ -132,11 +132,3 @@ node scanner/run.js --only=sjgt              # ~$0.05-0.12
 ```
 
 Then verify 3 of the returned events against sjgt.com before trusting anything.
-
----
-
-## Site Studio
-
-This repo also hosts **Site Studio** (`studio/`), a separate idea → design → deploy pipeline for
-personal and small-business websites on Azure Static Web Apps and GitHub Pages, driven by Claude.
-It never touches PlayFinder's build or deploy. See [`studio/README.md`](studio/README.md).
