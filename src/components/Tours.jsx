@@ -13,7 +13,7 @@ export default function Tours({ sourceStatus = [] }) {
   return (
     <div className="tours">
       <section>
-        <h2 className="h2">Which tours fit which ages?</h2>
+        <h2 className="section-title">Which tours fit which ages?</h2>
         <div className="guide">
           {GUIDE.map(([ages, text]) => (
             <div className="guide__card" key={ages}>
@@ -25,7 +25,7 @@ export default function Tours({ sourceStatus = [] }) {
       </section>
 
       <section>
-        <h2 className="h2">Tours we track</h2>
+        <h2 className="section-title">Tours we track</h2>
         <p className="muted">There's no master list of junior golf, so PlayFinder reads each organization's own
           schedule every day. These {SOURCES.length} organizations run nearly every competitive junior event in the region.</p>
         <ul className="tourlist">

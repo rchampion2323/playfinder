@@ -21,21 +21,18 @@ export default function TournamentCard({ t, saved, onToggleSave, onOpen }) {
   const d = dateParts(t);
   const reg = registration(t);
   return (
-    <article className="tcard" onClick={onOpen} onKeyDown={(e) => e.key === "Enter" && onOpen()} tabIndex={0}
-      aria-label={`${t.name}, ${d.range}`}>
-      <div className="tcard__date" aria-hidden="true">
-        <span className="tcard__mon">{d.mon}</span>
-        <span className="tcard__day">{d.day}</span>
-        <span className="tcard__dow">{d.days > 1 ? `${d.days} days` : d.dow}</span>
+    <article className={`tcard tcard--${t.type}`} onClick={onOpen} onKeyDown={(e) => e.key === "Enter" && onOpen()}
+      tabIndex={0} aria-label={`${t.name}, ${d.range}`}>
+      <div className="tcard__band">
+        <span className="tcard__type">{TYPES[t.type]?.label || t.type}</span>
+        <span className="tcard__tour">{t.tour}</span>
       </div>
       <div className="tcard__body">
-        <div className="tcard__top">
-          <span className={`pill pill--${t.type}`}>{TYPES[t.type]?.short || t.type}</span>
-          <span className="tcard__tour">{t.tour}</span>
-        </div>
+        <p className="tcard__date">{d.range}</p>
         <h3 className="tcard__name">{t.name}</h3>
         <p className="tcard__where">
-          {[t.venue, `${t.city}, ${t.state}`].filter(Boolean).join(" · ")}
+          {t.venue && <>{t.venue}<br /></>}
+          {t.city}, {t.state}
           {t.miles != null && <strong className="tcard__miles"> · {t.miles < 5 ? "nearby" : `${Math.round(t.miles)} mi`}</strong>}
         </p>
         <ul className="tcard__facts">
@@ -44,7 +41,10 @@ export default function TournamentCard({ t, saved, onToggleSave, onOpen }) {
           {t.holes && <li>{t.holes} holes</li>}
           {t.feeAmount != null && <li>{t.feeAmount === 0 ? "Free" : `$${t.feeAmount}`}</li>}
         </ul>
-        {reg && <p className={`reg reg--${reg.tone}`}>{reg.text}</p>}
+        <div className="tcard__foot">
+          {reg ? <span className={`reg reg--${reg.tone}`}>{reg.text}</span> : <span />}
+          <span className="tcard__more">Details →</span>
+        </div>
       </div>
       <StarButton saved={saved} onToggle={onToggleSave} label={t.name} />
     </article>
