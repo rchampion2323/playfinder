@@ -48,9 +48,10 @@ npm run build                 # → dist/
 
 ## Deploy
 
-`.github/workflows/azure-static-web-apps-victorious-cliff-0372cbf10.yml` builds
+`.github/workflows/azure-static-web-apps.yml` builds
 and deploys on every push to `main` (and gives each pull request a preview URL).
-The daily pull starts it after committing new data.
+The daily pull starts it after committing new data. It deploys with the repo secret
+`AZURE_STATIC_WEB_APPS_API_TOKEN` (the Static Web App's deployment token).
 
 ## Roadmap
 

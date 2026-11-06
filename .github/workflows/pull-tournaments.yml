@@ -81,7 +81,7 @@ jobs:
         if: steps.commit.outputs.changed == 'true' && github.ref_name == 'main'
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh workflow run azure-static-web-apps-victorious-cliff-0372cbf10.yml --ref main
+        run: gh workflow run azure-static-web-apps.yml --ref main
 
       - name: Review issue
         if: steps.pull.outputs.skipped != 'true'
