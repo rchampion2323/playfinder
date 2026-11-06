@@ -5,8 +5,8 @@
 # site. Anything unusual is held back and listed in a "Tournaments to review"
 # issue instead of going live.
 #
-# Needs the repo secret ANTHROPIC_API_KEY. Optional repo variable SCAN_MODEL
-# (default claude-opus-5-5; claude-haiku-5-5 is far cheaper).
+# Needs the repo secret ANTHROPIC_API_KEY. Model: claude-haiku-5-5 by default;
+# override with the repo variable SCAN_MODEL or the "model" input when run by hand.
 #
 # Run it by hand: Actions → "Pull tournaments" → Run workflow. Running it on a
 # branch other than main commits the data to that branch (handy for filling a
@@ -20,6 +20,10 @@ on:
     inputs:
       only:
         description: "Only these sources (comma-separated ids, e.g. hjgt,sjgt). Blank = all."
+        required: false
+        default: ""
+      model:
+        description: "Claude model override (blank = scanner default, claude-haiku-5-5)"
         required: false
         default: ""
 
@@ -48,7 +52,7 @@ jobs:
         id: pull
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          SCAN_MODEL: ${{ vars.SCAN_MODEL }}
+          SCAN_MODEL: ${{ inputs.model || vars.SCAN_MODEL }}
           ONLY: ${{ inputs.only }}
         run: |
           if [ -z "$ANTHROPIC_API_KEY" ]; then

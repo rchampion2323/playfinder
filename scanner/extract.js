@@ -10,7 +10,9 @@
 
 import Anthropic from "@anthropic-ai/sdk";
 
-export const MODEL = process.env.SCAN_MODEL || "claude-opus-5-5";
+// Haiku 5.5 by default: a small fraction of Opus's cost. Override with the SCAN_MODEL
+// repo variable or the workflow's "model" input to compare.
+export const MODEL = process.env.SCAN_MODEL || "claude-haiku-5-5";
 const MAX_FETCHES = Number(process.env.MAX_FETCHES || 6);
 const MAX_SEARCHES = Number(process.env.MAX_SEARCHES || 3);
 
@@ -103,8 +105,8 @@ export async function extractSource(source, opts) {
     const res = await client.beta.messages.create({
       model: MODEL,
       max_tokens: 16000,
-      betas: ["server-side-fallback-2026-07-01"],
-      fallbacks: "default", // re-run on Anthropic's recommended fallback model if a request is declined
+      // Server-side refusal fallback exists for Opus/Sonnet/Fable, not Haiku.
+      ...(isHaiku ? {} : { betas: ["server-side-fallback-2026-07-01"], fallbacks: "default" }),
       output_config: { effort: process.env.SCAN_EFFORT || "medium" },
       system: SYSTEM,
       tools: [...SERVER_TOOLS, REPORT_TOOL],
