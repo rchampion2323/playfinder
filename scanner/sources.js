@@ -12,7 +12,7 @@ const CONFIG = {
   "HJGT (Hurricane Junior Golf Tour)": { id: "hjgt", short: "HJGT", type: "ranked",
     // hjgt.org/schedule and the tournaments.hjgt.org app need JavaScript; this page lists events as text.
     url: "https://www.hjgt.org/tournament-locations/",
-    notes: "This page links to one page per state (e.g. /tournament-locations/alabama/). Read the Alabama, Florida and Mississippi pages. Dates there omit the year: use the next occurrence on or after today." },
+    notes: "This page links to one page per state (e.g. /tournament-locations/alabama/). Read the Alabama and Florida pages (there is no Mississippi page). Dates there omit the year: use the next occurrence on or after today." },
   "SJGT (Southeastern Junior Golf Tour)": { id: "sjgt", short: "SJGT", type: "ranked" },
   "US Kids Golf": { id: "uskids", short: "US Kids Golf", type: "entry",
     notes: "Local tours list events per tour; open the Gulf Coast-area local tours (Mobile, Baldwin County, Pensacola/Emerald Coast, Gulf Coast MS, Birmingham, Montgomery)." },
