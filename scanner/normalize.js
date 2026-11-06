@@ -1,153 +1,101 @@
 // scanner/normalize.js
 //
-// The accuracy gate. Everything the model returns passes through here before it
-// can reach the database. A wrong date sends a family on a three-hour drive to
-// a tournament that doesn't exist — that's the failure mode this file prevents.
+// The accuracy gate. Everything Claude extracts passes through here before a
+// parent can see it. A wrong date sends a family on a three-hour drive to a
+// tournament that doesn't exist — that's the failure this file prevents.
+//
+// validate() → hard failures: the record is dropped.
+// flags()    → soft anomalies: the record is held for review instead of published.
 
-const STATES = new Set(["AL", "FL", "MS"]);
-const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
+export const STATES = new Set(["AL", "FL", "MS", "LA", "GA", "TN", "TX"]);
+export const TYPES = new Set(["entry", "ranked", "championship", "national", "qualifier"]);
+const ISO = /^\d{4}-\d{2}-\d{2}$/;
 
-/**
- * Validate one raw event. Returns { ok, event, reasons }.
- */
-export function validateEvent(raw, source) {
+const isRealDate = (s) => {
+  if (!ISO.test(s)) return false;
+  const d = new Date(`${s}T12:00:00Z`);
+  return !Number.isNaN(d.getTime()) && d.toISOString().slice(0, 10) === s;
+};
+const isUrl = (s) => { try { return /^https?:$/.test(new URL(s).protocol); } catch { return false; } };
+const clean = (s, n = 200) => String(s ?? "").replace(/\s+/g, " ").trim().slice(0, n);
+
+export function slug(s) {
+  return String(s).toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g, "")
+    .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 60);
+}
+
+/** Returns { ok, event, reasons }. */
+export function validate(raw, source, today = new Date().toISOString().slice(0, 10)) {
   const reasons = [];
-  const name = String(raw?.name || "").trim();
-  if (!name || name.length < 4) reasons.push("missing or too-short name");
+  const name = clean(raw?.name, 160);
+  if (name.length < 4) reasons.push("missing name");
 
-  // Dates must be real ISO dates, not invented strings
-  const startDate = String(raw?.startDate || "").trim();
-  if (!ISO_DATE.test(startDate)) {
-    reasons.push("startDate not in YYYY-MM-DD form");
-  } else {
-    const d = new Date(startDate + "T12:00:00Z");
-    if (Number.isNaN(d.getTime())) reasons.push("startDate is not a real date");
-    // Reject anything in the past or absurdly far out
-    const now = new Date();
-    const twoYears = new Date(now.getTime() + 730 * 864e5);
-    if (d < new Date(now.toDateString())) reasons.push("event date is in the past");
-    if (d > twoYears) reasons.push("event date more than 2 years out — likely hallucinated");
+  const startDate = clean(raw?.startDate, 10);
+  let endDate = clean(raw?.endDate, 10) || startDate;
+  if (!isRealDate(startDate)) reasons.push(`bad startDate "${startDate}"`);
+  if (!isRealDate(endDate)) endDate = startDate;
+  if (endDate < startDate) reasons.push("endDate before startDate");
+  if (isRealDate(startDate) && endDate < today) reasons.push("already finished");
+
+  const state = clean(raw?.state, 2).toUpperCase();
+  if (!STATES.has(state)) reasons.push(`state "${state}" outside coverage`);
+
+  const ageMin = Number(raw?.ageMin), ageMax = Number(raw?.ageMax);
+  if (!(Number.isInteger(ageMin) && Number.isInteger(ageMax) && ageMin >= 4 && ageMax <= 19 && ageMin <= ageMax)) {
+    reasons.push(`implausible ages ${raw?.ageMin}–${raw?.ageMax}`);
   }
 
-  let endDate = String(raw?.endDate || "").trim();
-  if (!ISO_DATE.test(endDate)) endDate = startDate;
-  if (ISO_DATE.test(startDate) && ISO_DATE.test(endDate) && endDate < startDate) {
-    reasons.push("endDate before startDate");
-  }
+  const entryUrl = clean(raw?.entryUrl, 500);
+  const sourceUrl = clean(raw?.sourceUrl, 500);
+  if (!isUrl(entryUrl) && !isUrl(sourceUrl)) reasons.push("no valid link to the tournament");
 
-  const state = String(raw?.state || "").trim().toUpperCase();
-  if (!STATES.has(state)) reasons.push(`state "${state}" outside AL/FL/MS`);
+  if (reasons.length) return { ok: false, reasons };
 
-  // Ages must be sane for junior golf
-  const ageMin = Number(raw?.ageMin);
-  const ageMax = Number(raw?.ageMax);
-  const agesOk =
-    Number.isFinite(ageMin) && Number.isFinite(ageMax) &&
-    ageMin >= 5 && ageMax <= 19 && ageMin <= ageMax;
-  if (!agesOk) reasons.push("age range missing or implausible");
-
-  // URL must be a real http(s) URL
-  const url = String(raw?.url || "").trim();
-  try {
-    const u = new URL(url);
-    if (!/^https?:$/.test(u.protocol)) reasons.push("url not http(s)");
-  } catch {
-    reasons.push("url missing or malformed");
-  }
-
-  if (reasons.length) return { ok: false, event: null, reasons };
+  const gender = ["boys", "girls"].includes(raw?.gender) ? raw.gender : "coed";
+  const type = TYPES.has(raw?.type) ? raw.type : source.type || "ranked";
+  const closes = clean(raw?.registrationCloses, 10);
+  const fee = Number(raw?.feeAmount);
+  const holes = Number(raw?.holes);
 
   return {
     ok: true,
     reasons: [],
     event: {
-      id: makeId(name, startDate),
+      id: `${slug(source.id || source.name)}--${slug(name)}--${startDate}`,
       name,
+      tour: clean(raw?.tour, 80) || source.short || source.name,
+      source: source.name,
       startDate,
       endDate,
-      venue: String(raw.venue || "").trim(),
-      city: String(raw.city || "").trim(),
+      venue: clean(raw?.venue, 120),
+      city: clean(raw?.city, 80),
       state,
       ageMin,
       ageMax,
-      divisions: Array.isArray(raw.divisions) ? raw.divisions.map(String) : [],
-      fee: String(raw.fee || "").trim(),
-      url,
-      tour: source.name,
-      source: source.name,
-      sourceNote: String(raw.sourceNote || "").trim(),
-      // Review gate: nothing goes live until a human flips this to "published"
-      status: "pending",
-      confidence: scoreConfidence(raw),
-      lastVerified: new Date().toISOString(),
+      gender,
+      type,
+      divisions: Array.isArray(raw?.divisions) ? raw.divisions.map((d) => clean(d, 60)).filter(Boolean).slice(0, 12) : [],
+      holes: Number.isInteger(holes) && holes > 0 && holes <= 90 ? holes : null,
+      feeAmount: raw?.feeAmount != null && Number.isFinite(fee) && fee >= 0 ? Math.round(fee) : null,
+      registrationCloses: isRealDate(closes) ? closes : null,
+      status: ["open", "closed", "full", "not_open"].includes(raw?.status) ? raw.status : "unknown",
+      entryUrl: isUrl(entryUrl) ? entryUrl : sourceUrl,
+      sourceUrl: isUrl(sourceUrl) ? sourceUrl : entryUrl,
     },
   };
 }
 
-function makeId(name, startDate) {
-  const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 60);
-  return `${slug}-${startDate}`;
-}
-
-/**
- * Confidence heuristic — drives which events you can eventually auto-publish.
- */
-function scoreConfidence(raw) {
-  let score = 0;
-  if (raw?.venue) score++;
-  if (raw?.city) score++;
-  if (Array.isArray(raw?.divisions) && raw.divisions.length) score++;
-  if (raw?.fee) score++;
-  if (raw?.sourceNote) score++;
-  if (score >= 4) return "high";
-  if (score >= 2) return "medium";
-  return "low";
-}
-
-/**
- * Dedupe across sources. Two events are the same if name+startDate collide,
- * or if the same venue hosts an event on the same date.
- */
-export function dedupe(events) {
-  const byKey = new Map();
-  for (const e of events) {
-    const nameKey = `${e.name.toLowerCase().replace(/[^a-z0-9]/g, "")}|${e.startDate}`;
-    const venueKey = e.venue
-      ? `v:${e.venue.toLowerCase().replace(/[^a-z0-9]/g, "")}|${e.startDate}`
-      : null;
-    const existingKey = byKey.has(nameKey) ? nameKey
-      : (venueKey && byKey.has(venueKey) ? venueKey : null);
-
-    if (existingKey) {
-      // Keep the richer record
-      const prev = byKey.get(existingKey);
-      const rank = { high: 3, medium: 2, low: 1 };
-      if (rank[e.confidence] > rank[prev.confidence]) {
-        byKey.set(existingKey, { ...e, alsoFoundVia: prev.source });
-      } else {
-        prev.alsoFoundVia = e.source;
-      }
-    } else {
-      byKey.set(nameKey, e);
-      if (venueKey) byKey.set(venueKey, byKey.get(nameKey));
-    }
+/** Soft checks. Any flag holds the record back for a human look. */
+export function flags(event, previous, today = new Date().toISOString().slice(0, 10)) {
+  const out = [];
+  const days = (a, b) => Math.round((new Date(`${a}T12:00:00Z`) - new Date(`${b}T12:00:00Z`)) / 864e5);
+  if (days(event.startDate, today) > 550) out.push("more than 18 months away");
+  if (days(event.endDate, event.startDate) > 6) out.push("runs longer than a week");
+  if (event.feeAmount != null && event.feeAmount > 1200) out.push(`unusually high fee ($${event.feeAmount})`);
+  if (event.lat == null) out.push(`couldn't place "${event.city}, ${event.state}" on the map`);
+  if (event.registrationCloses && event.registrationCloses > event.endDate) out.push("registration closes after the event");
+  if (previous && previous.startDate !== event.startDate && Math.abs(days(event.startDate, previous.startDate)) > 21) {
+    out.push(`date moved from ${previous.startDate} to ${event.startDate}`);
   }
-  return [...new Set(byKey.values())].sort((a, b) => a.startDate.localeCompare(b.startDate));
-}
-
-/**
- * Run raw model output through validation + dedupe.
- * Returns { events, rejected } — always inspect `rejected` while tuning prompts.
- */
-export function normalize(rawEventsBySource) {
-  const accepted = [];
-  const rejected = [];
-  for (const { source, events } of rawEventsBySource) {
-    for (const raw of events) {
-      const result = validateEvent(raw, source);
-      if (result.ok) accepted.push(result.event);
-      else rejected.push({ source: source.name, name: raw?.name || "(unnamed)", reasons: result.reasons });
-    }
-  }
-  return { events: dedupe(accepted), rejected };
+  return out;
 }

@@ -1,0 +1,35 @@
+# One-off helper: downloads the free-licensed photos listed in
+# design/photo-sources.json from Wikimedia Commons, shrinks them, and commits
+# them to design/photos/ on the same branch. Runs when that list changes.
+name: Fetch design photos
+
+on:
+  push:
+    branches-ignore: [main]
+    paths: ["design/photo-sources.json", ".github/workflows/fetch-photos.yml"]
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download and resize
+        run: |
+          mkdir -p design/photos
+          command -v convert >/dev/null || (sudo apt-get update -q && sudo apt-get install -y -q imagemagick)
+          jq -r '.[] | "\(.file)\t\(.url)"' design/photo-sources.json | while IFS=$'\t' read -r file url; do
+            curl -fsSL -A "PlayFinder/0.1 (personal non-commercial project; github.com/rchampion2323/playfinder)" "$url" -o /tmp/src.jpg
+            convert /tmp/src.jpg -auto-orient -resize '2400x>' -strip -quality 80 "design/photos/$file"
+            echo "✔ $file"; sleep 2
+          done
+      - name: Commit
+        run: |
+          git add design/photos
+          git diff --cached --quiet && exit 0
+          git config user.name "playfinder-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "design: fetch candidate photos from Wikimedia Commons"
+          git push origin "HEAD:${GITHUB_REF_NAME}"

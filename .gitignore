@@ -1,0 +1,7 @@
+node_modules/
+dist/
+studio/.out/
+.DS_Store
+*.log
+local.settings.json
+scanner/output/
