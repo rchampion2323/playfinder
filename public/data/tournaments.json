@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-06T22:31:25.432Z",
+ "generatedAt": "2026-11-06T22:42:16.491Z",
  "sample": false,
  "states": [
   "AL",
@@ -10,9 +10,9 @@
   {
    "name": "HJGT (Hurricane Junior Golf Tour)",
    "ok": true,
-   "checked": "2026-11-06T22:31:25.424Z",
+   "checked": "2026-11-06T22:42:16.483Z",
    "count": 5,
-   "note": "I couldn't open https://hjgt.org/schedule/ (url_not_accessible). The schedule app at tournaments.hjgt.org loads with JavaScript and came back empty, then the tool usage limit stopped me before I could open any event detail pages. Every entry below comes from the official https://www.hjgt.org/tournament-locations/ page (retrieved 2026-11-06), which lists upcoming events by state with venue and city. That page doesn't print the year: I'm treating it as 2026 because the events are marked 'Upcoming' and every date falls on a weekend. Ages 10-18 come from HJGT's tour-wide divisions, not from each event's page. Fees, holes, deadlines and status weren't available. The page shows only a few upcoming events per state, so later events (Dec 2026 to 2027) are probably missing. No Mississippi section appears."
+   "note": "Read the HJGT schedule page and the Alabama and Florida state pages (the first Alabama/Florida fetch attempts failed and succeeded on retry). The Mississippi state page could not be read because the fetch tool-call limit was reached, so Mississippi is unverified and may have upcoming events. Dates on the state pages omit the year; I applied the 2026 year because the next occurrence on or after 2026-11-06 falls in 2026. Age range 8-18 comes from the FAQ on the state pages, not from each event page, which I did not open. Fees, registration deadlines, holes, and status were not listed on the pages I read."
   }
  ],
  "tournaments": [
@@ -26,7 +26,7 @@
    "venue": "Bobby Jones Golf Club – Ross",
    "city": "Sarasota",
    "state": "FL",
-   "ageMin": 10,
+   "ageMin": 8,
    "ageMax": 18,
    "gender": "coed",
    "type": "ranked",
@@ -36,10 +36,10 @@
    "registrationCloses": null,
    "status": "unknown",
    "entryUrl": "https://tournaments.hjgt.org/Tournament/TournamentDetails?TID=32953",
-   "sourceUrl": "https://www.hjgt.org/tournament-locations/",
+   "sourceUrl": "https://www.hjgt.org/tournament-locations/florida/",
    "lat": 27.3364,
    "lng": -82.5306,
-   "lastVerified": "2026-11-06T22:31:24.981Z"
+   "lastVerified": "2026-11-06T22:42:16.483Z"
   },
   {
    "id": "hjgt--winter-garden-junior-open--2026-11-07",
@@ -51,7 +51,7 @@
    "venue": "Stoneybrook West Golf Club",
    "city": "Winter Garden",
    "state": "FL",
-   "ageMin": 10,
+   "ageMin": 8,
    "ageMax": 18,
    "gender": "coed",
    "type": "ranked",
@@ -61,10 +61,10 @@
    "registrationCloses": null,
    "status": "unknown",
    "entryUrl": "https://tournaments.hjgt.org/Tournament/TournamentDetails?TID=32927",
-   "sourceUrl": "https://www.hjgt.org/tournament-locations/",
+   "sourceUrl": "https://www.hjgt.org/tournament-locations/florida/",
    "lat": 28.5653,
    "lng": -81.5862,
-   "lastVerified": "2026-11-06T22:31:25.091Z"
+   "lastVerified": "2026-11-06T22:42:16.483Z"
   },
   {
    "id": "hjgt--huntsville-junior-open--2026-11-14",
@@ -73,10 +73,10 @@
    "source": "HJGT (Hurricane Junior Golf Tour)",
    "startDate": "2026-11-14",
    "endDate": "2026-11-15",
-   "venue": "Farmlinks Golf Club at Pursell Farms – Farmlinks at Pursell Farms",
+   "venue": "Farmlinks Golf Club at Pursell Farms",
    "city": "Sylacauga",
    "state": "AL",
-   "ageMin": 10,
+   "ageMin": 8,
    "ageMax": 18,
    "gender": "coed",
    "type": "ranked",
@@ -86,10 +86,10 @@
    "registrationCloses": null,
    "status": "unknown",
    "entryUrl": "https://tournaments.hjgt.org/Tournament/TournamentDetails?TID=33005",
-   "sourceUrl": "https://www.hjgt.org/tournament-locations/",
+   "sourceUrl": "https://www.hjgt.org/tournament-locations/alabama/",
    "lat": 33.1732,
    "lng": -86.2516,
-   "lastVerified": "2026-11-06T22:31:25.424Z"
+   "lastVerified": "2026-11-06T22:42:16.483Z"
   },
   {
    "id": "hjgt--reunion-junior-open--2026-11-14",
@@ -101,7 +101,7 @@
    "venue": "Reunion Resort – Palmer",
    "city": "Reunion",
    "state": "FL",
-   "ageMin": 10,
+   "ageMin": 8,
    "ageMax": 18,
    "gender": "coed",
    "type": "ranked",
@@ -111,10 +111,10 @@
    "registrationCloses": null,
    "status": "unknown",
    "entryUrl": "https://tournaments.hjgt.org/Tournament/TournamentDetails?TID=33000",
-   "sourceUrl": "https://www.hjgt.org/tournament-locations/",
+   "sourceUrl": "https://www.hjgt.org/tournament-locations/florida/",
    "lat": 28.2803,
    "lng": -81.6081,
-   "lastVerified": "2026-11-06T22:31:25.202Z"
+   "lastVerified": "2026-11-06T22:42:16.483Z"
   },
   {
    "id": "hjgt--southeast-florida-junior-open--2026-11-14",
@@ -126,7 +126,7 @@
    "venue": "Indian Springs Country Club – East",
    "city": "Boynton Beach",
    "state": "FL",
-   "ageMin": 10,
+   "ageMin": 8,
    "ageMax": 18,
    "gender": "coed",
    "type": "ranked",
@@ -136,10 +136,10 @@
    "registrationCloses": null,
    "status": "unknown",
    "entryUrl": "https://tournaments.hjgt.org/Tournament/TournamentDetails?TID=32930",
-   "sourceUrl": "https://www.hjgt.org/tournament-locations/",
+   "sourceUrl": "https://www.hjgt.org/tournament-locations/florida/",
    "lat": 26.5253,
    "lng": -80.0664,
-   "lastVerified": "2026-11-06T22:31:25.314Z"
+   "lastVerified": "2026-11-06T22:42:16.483Z"
   }
  ]
 }
