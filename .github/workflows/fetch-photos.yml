@@ -6,7 +6,7 @@ name: Fetch design photos
 on:
   push:
     branches-ignore: [main]
-    paths: ["design/photo-sources.json"]
+    paths: ["design/photo-sources.json", ".github/workflows/fetch-photos.yml"]
 
 permissions:
   contents: write
@@ -19,8 +19,8 @@ jobs:
       - name: Download and resize
         run: |
           mkdir -p design/photos
-          for row in $(jq -c '.[]' design/photo-sources.json); do
-            file=$(echo "$row" | jq -r .file); url=$(echo "$row" | jq -r .url)
+          command -v convert >/dev/null || (sudo apt-get update -q && sudo apt-get install -y -q imagemagick)
+          jq -r '.[] | "\(.file)\t\(.url)"' design/photo-sources.json | while IFS=$'\t' read -r file url; do
             curl -fsSL -A "PlayFinder/0.1 (personal non-commercial project; github.com/rchampion2323/playfinder)" "$url" -o /tmp/src.jpg
             convert /tmp/src.jpg -auto-orient -resize '2400x>' -strip -quality 80 "design/photos/$file"
             echo "✔ $file"; sleep 2
