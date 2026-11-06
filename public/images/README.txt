@@ -5,3 +5,6 @@ Drop photos here (only ones you took or have permission to use):
                       "Browse by tournament type" tiles (~800x520)
 
 Any missing photo falls back to the drawn golf scene.
+
+Current photos are from Wikimedia Commons (see design/photo-sources.json); their
+credits are listed in src/data/photoCredits.js and shown in the site footer.

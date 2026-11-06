@@ -7,6 +7,7 @@ import TournamentSheet from "./components/TournamentSheet.jsx";
 import TypeTiles from "./components/TypeTiles.jsx";
 import Tours from "./components/Tours.jsx";
 import { PLACES } from "./data/places.js";
+import { PHOTO_CREDITS } from "./data/photoCredits.js";
 import * as storage from "./lib/storage.js";
 import {
   loadTournaments, filterTournaments, freshness, filtersFromUrl, filtersToUrl, milesBetween, todayIso,
@@ -138,7 +139,11 @@ export default function App() {
         <main>
           <section className="hero">
             <Landscape className="hero__art" />
-            <img className="hero__photo" src="images/hero.jpg" alt="" onError={(e) => { e.currentTarget.style.display = "none"; }} />
+            <picture>
+              <source media="(max-width: 700px)" srcSet="images/hero-mobile.jpg" />
+              <img className="hero__photo" src="images/hero.jpg" alt="" fetchpriority="high"
+                onError={(e) => { e.currentTarget.style.display = "none"; }} />
+            </picture>
             <div className="hero__shade" />
             <div className="wrap hero__content">
               <div className="hero__rule" />
@@ -206,6 +211,14 @@ export default function App() {
           </nav>
           <p className="ftr__fine">Not affiliated with any tour. Always confirm dates, eligibility and fees with the
             organizer before you travel.</p>
+          <p className="ftr__credits">Photos (cropped) from Wikimedia Commons:{" "}
+            {PHOTO_CREDITS.map((c, i) => (
+              <span key={c.page}>{i > 0 && " · "}
+                <a href={c.page} target="_blank" rel="noreferrer">{c.title}</a> by {c.author},{" "}
+                <a href={c.licenseUrl} target="_blank" rel="noreferrer">{c.license}</a>
+              </span>
+            ))}
+          </p>
         </div>
       </footer>
 
