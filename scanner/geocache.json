@@ -1,1 +1,22 @@
-{}
+{
+  "boynton beach|FL": {
+    "lat": 26.5253,
+    "lng": -80.0664
+  },
+  "reunion|FL": {
+    "lat": 28.2803,
+    "lng": -81.6081
+  },
+  "sarasota|FL": {
+    "lat": 27.3364,
+    "lng": -82.5306
+  },
+  "sylacauga|AL": {
+    "lat": 33.1732,
+    "lng": -86.2516
+  },
+  "winter garden|FL": {
+    "lat": 28.5653,
+    "lng": -81.5862
+  }
+}
