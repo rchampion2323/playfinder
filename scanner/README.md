@@ -37,9 +37,9 @@ or hide one by adding its id to `scanner/review.json`:
    limit first** (Settings → Limits).
 2. GitHub → this repo → Settings → Secrets and variables → Actions →
    New repository secret: `ANTHROPIC_API_KEY`.
-3. Optional repository *variable* `SCAN_MODEL`. Default `claude-opus-5-5`
-   (most reliable reading of messy schedule pages). `claude-haiku-5-5` costs a
-   small fraction as much; compare one run of each before switching.
+3. Optional repository *variable* `SCAN_MODEL`. Default `claude-haiku-5-5`
+   (cheap enough to run daily). `claude-opus-5-5` reads messy pages more
+   reliably but cost ~$1 per tour in the first test run.
 4. Actions → **Pull tournaments** → Run workflow (try `only: hjgt` first).
 
 ## Running locally

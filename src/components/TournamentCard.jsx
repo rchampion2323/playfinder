@@ -37,6 +37,7 @@ export default function TournamentCard({ t, saved, onToggleSave, onOpen }) {
         </p>
         <ul className="tcard__facts">
           <li>{ageLabel(t)}</li>
+          {t.region === "statewide" && <li className="fact--travel">Statewide event</li>}
           {t.gender !== "coed" && <li>{genderLabel(t.gender)}</li>}
           {t.holes && <li>{t.holes} holes</li>}
           {t.feeAmount != null && <li>{t.feeAmount === 0 ? "Free" : `$${t.feeAmount}`}</li>}

@@ -69,7 +69,9 @@ export function filterTournaments(list, f, origin) {
     if (f.types.length && !f.types.includes(t.type)) continue;
     if (q && !`${t.name} ${t.tour} ${t.venue} ${t.city}`.toLowerCase().includes(q)) continue;
     const miles = origin ? milesBetween(origin, t) : null;
-    if (origin && f.radius && (miles == null || miles > f.radius)) continue;
+    // Statewide events (championships, national events, qualifiers) are worth the drive,
+    // so they ignore the distance limit; everything else must be within it.
+    if (origin && f.radius && t.region !== "statewide" && (miles == null || miles > f.radius)) continue;
     out.push({ ...t, miles });
   }
   out.sort(f.sort === "distance" && origin

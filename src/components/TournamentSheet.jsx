@@ -49,6 +49,7 @@ export default function TournamentSheet({ t, saved, onToggleSave, onClose, sampl
           <div><dt>Where</dt><dd>{t.venue && <>{t.venue}<br /></>}{t.city}, {t.state}
             {t.miles != null && <span className="muted"> · {Math.round(t.miles)} mi away</span>}
             <br /><a href={maps} target="_blank" rel="noreferrer">Directions ↗</a></dd></div>
+          {t.region === "statewide" && <div><dt>Travel</dt><dd>Statewide event — outside the Gulf Coast area, listed because it's a state championship, national event or qualifier.</dd></div>}
           <div><dt>Who</dt><dd>{ageLabel(t)} · {genderLabel(t.gender)}</dd></div>
           {t.divisions?.length > 0 && <div><dt>Divisions</dt><dd>{t.divisions.join(" · ")}</dd></div>}
           {t.holes && <div><dt>Format</dt><dd>{t.holes} holes</dd></div>}
