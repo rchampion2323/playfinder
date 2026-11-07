@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-06T22:31:25.432Z",
+ "generatedAt": "2026-11-07T16:31:03.582Z",
  "sample": false,
  "states": [
   "AL",
@@ -8,11 +8,151 @@
  ],
  "sources": [
   {
-   "name": "HJGT (Hurricane Junior Golf Tour)",
+   "name": "AJGA",
+   "ok": false,
+   "checked": "2026-11-07T16:31:02.907Z",
+   "count": 0,
+   "note": "400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011CgotPGQmbN6JwCqqSbZvo\"}"
+  },
+  {
+   "name": "Alabama Golf Association",
+   "ok": false,
+   "checked": "2026-11-07T16:31:01.987Z",
+   "count": 0,
+   "note": "400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011CgotPCNwKa4X6iaCAL3cB\"}"
+  },
+  {
+   "name": "Dixie Section PGA",
+   "ok": false,
+   "checked": "2026-11-07T16:31:02.359Z",
+   "count": 0,
+   "note": "400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011CgotPE5Nsh27uatx6Cm7q\"}"
+  },
+  {
+   "name": "Drive, Chip & Putt",
+   "ok": false,
+   "checked": "2026-11-07T16:31:03.024Z",
+   "count": 0,
+   "note": "400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011CgotPGvXeUC9CHfYjMQGX\"}"
+  },
+  {
+   "name": "Emerald Coast Junior Golf Tour",
    "ok": true,
-   "checked": "2026-11-06T22:31:25.424Z",
+   "checked": "2026-11-07T16:30:17.205Z",
+   "count": 0,
+   "note": "The schedule page https://www.emeraldcoastjuniorgolftour.com could not be fetched (url_not_allowed on all URL variants). I tried the alternate site ecjrgolftour.com, but the tool limit was reached before it returned. A web search turned up only past events (Sept and Aug 2026), so no upcoming tournaments could be verified."
+  },
+  {
+   "name": "FCWT Junior Golf Tour",
+   "ok": false,
+   "checked": "2026-11-07T16:31:02.658Z",
+   "count": 0,
+   "note": "400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011CgotPFK3WDzMvaboLrtat\"}"
+  },
+  {
+   "name": "FSGA / Florida Junior Tour",
+   "ok": false,
+   "checked": "2026-11-07T16:31:01.808Z",
+   "count": 0,
+   "note": "400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011CgotPBhzgHQaHuQxJ2yej\"}"
+  },
+  {
+   "name": "Gulf States PGA",
+   "ok": false,
+   "checked": "2026-11-07T16:31:02.513Z",
+   "count": 0,
+   "note": "400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011CgotPEfMhTp9wiN76zt9u\"}"
+  },
+  {
+   "name": "HJGT (Hurricane Junior Golf Tour)",
+   "ok": false,
+   "checked": "2026-11-07T16:31:01.677Z",
    "count": 5,
-   "note": "I couldn't open https://hjgt.org/schedule/ (url_not_accessible). The schedule app at tournaments.hjgt.org loads with JavaScript and came back empty, then the tool usage limit stopped me before I could open any event detail pages. Every entry below comes from the official https://www.hjgt.org/tournament-locations/ page (retrieved 2026-11-06), which lists upcoming events by state with venue and city. That page doesn't print the year: I'm treating it as 2026 because the events are marked 'Upcoming' and every date falls on a weekend. Ages 10-18 come from HJGT's tour-wide divisions, not from each event's page. Fees, holes, deadlines and status weren't available. The page shows only a few upcoming events per state, so later events (Dec 2026 to 2027) are probably missing. No Mississippi section appears."
+   "note": "400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011CgotPB8GoksDZEdu1MJ6b\"}"
+  },
+  {
+   "name": "IJGT (International Junior Golf Tour)",
+   "ok": false,
+   "checked": "2026-11-07T16:31:01.077Z",
+   "count": 0,
+   "note": "400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011CgotMwHK3FPBU1qkAi6PX\"}"
+  },
+  {
+   "name": "Junior Orange Bowl",
+   "ok": false,
+   "checked": "2026-11-07T16:31:03.575Z",
+   "count": 0,
+   "note": "400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011CgotPKEgqzDaCuRTsvW4L\"}"
+  },
+  {
+   "name": "Mississippi Golf Association",
+   "ok": false,
+   "checked": "2026-11-07T16:31:02.114Z",
+   "count": 0,
+   "note": "400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011CgotPD1PKJx8DaXmV1GTY\"}"
+  },
+  {
+   "name": "NB3 Junior Golf National Championship",
+   "ok": false,
+   "checked": "2026-11-07T16:31:03.152Z",
+   "count": 0,
+   "note": "400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011CgotPHSndfCr5w9heEVz8\"}"
+  },
+  {
+   "name": "North Florida PGA Junior Tour",
+   "ok": false,
+   "checked": "2026-11-07T16:31:01.293Z",
+   "count": 0,
+   "note": "400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011CgotP9CRwp3DXmCWNDbqq\"}"
+  },
+  {
+   "name": "Optimist Junior Golf",
+   "ok": false,
+   "checked": "2026-11-07T16:31:03.284Z",
+   "count": 0,
+   "note": "400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011CgotPHz2UxTzhNN6tGMtZ\"}"
+  },
+  {
+   "name": "PKB Girls Golf Tour",
+   "ok": false,
+   "checked": "2026-11-07T16:31:02.783Z",
+   "count": 0,
+   "note": "400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011CgotPFsHJEnETiM7CYU9q\"}"
+  },
+  {
+   "name": "Press Thornton Future Masters",
+   "ok": false,
+   "checked": "2026-11-07T16:31:03.441Z",
+   "count": 0,
+   "note": "400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011CgotPJghEiY2BKysWurwa\"}"
+  },
+  {
+   "name": "SJGT (Southeastern Junior Golf Tour)",
+   "ok": false,
+   "checked": "2026-11-07T16:31:01.548Z",
+   "count": 0,
+   "note": "400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011CgotPAbn1Me25BC9gxFUd\"}"
+  },
+  {
+   "name": "South Florida PGA Junior Tour",
+   "ok": false,
+   "checked": "2026-11-07T16:31:01.426Z",
+   "count": 0,
+   "note": "400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011CgotPA3naGThHoqNQgRVb\"}"
+  },
+  {
+   "name": "US Kids Golf",
+   "ok": false,
+   "checked": "2026-11-07T16:31:02.236Z",
+   "count": 0,
+   "note": "400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011CgotPDYdDSB8bmtf3UGc5\"}"
+  },
+  {
+   "name": "USGA Championship Qualifying",
+   "ok": true,
+   "checked": "2026-11-07T16:30:44.736Z",
+   "count": 0,
+   "note": "I couldn't open the USGA schedule page (https://www.usga.org/championships.html): the fetch failed with url_not_accessible, and the tool would not open other usga.org URLs. A search only turned up 2026 qualifying sites (May–July 2026, already past), and I couldn't read any 2027 U.S. Junior Amateur or Girls' Junior qualifying dates for AL, FL or MS, so nothing is reported."
   }
  ],
  "tournaments": [
