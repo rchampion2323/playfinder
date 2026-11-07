@@ -89,6 +89,9 @@ ${source.notes ? `Notes: ${source.notes}\n` : ""}
 Read the schedule page (fetch it; follow links to individual event pages only when the schedule lacks dates, ages, or location).
 Report every upcoming tournament for juniors (ages 18 and under) that:
 - is located in one of these states: ${states.join(", ")}
+- and is EITHER near the Gulf Coast (Mobile/Baldwin County AL, coastal Mississippi, the Florida Panhandle from
+  Pensacola to Tallahassee, New Orleans/Baton Rouge LA) OR a state championship, national/elite event, or
+  qualifier anywhere in those states. Skip ordinary local events far from the coast (e.g. Orlando, Huntsville).
 - starts between ${today} and ${horizonDays} days from today.
 
 Then call report_tournaments.`;

@@ -6,6 +6,8 @@ import TournamentCard from "./components/TournamentCard.jsx";
 import TournamentSheet from "./components/TournamentSheet.jsx";
 import TypeTiles from "./components/TypeTiles.jsx";
 import Tours from "./components/Tours.jsx";
+import HomePrompt from "./components/HomePrompt.jsx";
+import { REGION_BLURB } from "./data/region.js";
 import { PLACES } from "./data/places.js";
 import { PHOTO_CREDITS } from "./data/photoCredits.js";
 import * as storage from "./lib/storage.js";
@@ -49,11 +51,19 @@ export default function App() {
   const [locating, setLocating] = useState(false);
   const [locError, setLocError] = useState("");
   const [shown, setShown] = useState(PAGE);
+  const [askHome, setAskHome] = useState(false);
   const resultsRef = useRef(null);
 
   useEffect(() => {
     loadTournaments().then(setData).catch((e) => setError(e.message));
     storage.get("saved").then((s) => Array.isArray(s) && setSaved(s));
+    // First visit: ask where home is (unless the link already says, e.g. a shared search).
+    if (!new URLSearchParams(window.location.search).has("near")) {
+      storage.get("home").then((h) => {
+        if (h && h !== "skip" && PLACES.some((p) => p.id === h)) setF((prev) => ({ ...prev, near: h }));
+        else if (!h) setAskHome(true);
+      });
+    }
   }, []);
 
   useEffect(() => {
@@ -148,7 +158,7 @@ export default function App() {
             <div className="wrap hero__content">
               <div className="hero__rule" />
               <h1>Junior golf tournaments<br />on the Gulf Coast</h1>
-              <p>Every junior tour in Alabama, Florida &amp; Mississippi — one search.</p>
+              <p>Every junior tournament around {REGION_BLURB} — plus the state events worth the drive.</p>
               <div className="hero__rule" />
               {data && (
                 <ul className="hero__stats">
@@ -221,6 +231,14 @@ export default function App() {
           </p>
         </div>
       </footer>
+
+      {askHome && (
+        <HomePrompt
+          onPick={(id) => { storage.set("home", id); set({ near: id }); setAskHome(false); }}
+          onUseLocation={() => { storage.set("home", "skip"); setAskHome(false); useLocation(); }}
+          onSkip={() => { storage.set("home", "skip"); setAskHome(false); }}
+        />
+      )}
 
       {openWithMiles && (
         <TournamentSheet t={openWithMiles} sample={data?.sample} saved={savedSet.has(openWithMiles.id)}

@@ -28,12 +28,13 @@ export default function Tours({ sourceStatus = [] }) {
         <h2 className="section-title">Tours we track</h2>
         <p className="muted">There's no master list of junior golf, so PlayFinder reads each organization's own
           schedule every day. These {SOURCES.length} organizations run nearly every competitive junior event in the region.</p>
+        <p className="muted">PlayFinder covers tournaments within about 125 miles of Mobile, Pensacola, Panama City, Gulfport and New Orleans, plus state championships, national events and qualifiers anywhere in Alabama, Mississippi, Florida and Louisiana.</p>
         <ul className="tourlist">
           {SOURCES.map((s) => (
             <li key={s.name}>
               <a href={s.url} target="_blank" rel="noreferrer">{s.name} ↗</a>
               <span>{s.cat}</span>
-              <small>{s.states.includes("all") ? "AL · FL · MS" : s.states.join(" · ")}
+              <small>{s.states.includes("all") ? "Gulf Coast-wide" : s.states.join(" · ")}
                 {status[s.name] && ` · ${status[s.name].count} upcoming`}</small>
             </li>
           ))}

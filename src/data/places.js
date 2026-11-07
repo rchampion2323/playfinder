@@ -28,9 +28,11 @@ export const PLACES = [
   { id: "jackson-ms", name: "Jackson, MS", lat: 32.2988, lng: -90.1848 },
   { id: "tupelo-ms", name: "Tupelo, MS", lat: 34.2576, lng: -88.7034 },
   { id: "oxford-ms", name: "Oxford, MS", lat: 34.3665, lng: -89.5192 },
-  // Neighbors families often drive to
+  // Louisiana
   { id: "new-orleans-la", name: "New Orleans, LA", lat: 29.9511, lng: -90.0715 },
+  { id: "northshore-la", name: "Mandeville / Covington, LA", lat: 30.3588, lng: -90.0656 },
   { id: "baton-rouge-la", name: "Baton Rouge, LA", lat: 30.4515, lng: -91.1871 },
+  { id: "lafayette-la", name: "Lafayette, LA", lat: 30.2241, lng: -92.0198 },
 ];
 
 export const RADII = [

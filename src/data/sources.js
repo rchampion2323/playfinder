@@ -1,4 +1,4 @@
-// Every organization that sanctions junior golf in AL/FL/MS.
+// Every organization that sanctions junior golf on the Gulf Coast (AL/FL/MS/LA).
 // The site lists these under "Tours & ages"; scanner/sources.js decides which
 // ones the daily pull reads and how.
 export const SOURCES = [
@@ -14,10 +14,11 @@ export const SOURCES = [
   { name: "HJGT (Hurricane Junior Golf Tour)", url: "https://hjgt.org/schedule/", states: ["all"], cat: "Ranked national tour with dense FL/AL schedules, divisions from age 8", scan: "Hurricane Junior Golf Tour schedule Alabama Florida" },
   { name: "FSGA / Florida Junior Tour", url: "https://www.fsga.org/juniors", states: ["FL"], cat: "Florida's state-association junior circuit and state championships", scan: "FSGA Florida Junior Tour FJT schedule" },
   { name: "Alabama Golf Association", url: "https://www.alabamagolf.org/championships", states: ["AL"], cat: "Alabama state junior championships (boys' & girls')", scan: "Alabama Golf Association junior championship schedule" },
+  { name: "Louisiana Golf Association", url: "https://www.lgagolf.org", states: ["LA"], cat: "Louisiana state junior championships and junior events", scan: "Louisiana Golf Association junior championship schedule" },
   { name: "Mississippi Golf Association", url: "https://www.msgolf.org", states: ["MS"], cat: "Mississippi state junior championships", scan: "Mississippi Golf Association state junior championship schedule" },
   { name: "US Kids Golf", url: "https://www.uskidsgolf.com/tournaments/local-tours/find-a-tour", states: ["all"], cat: "Local tours from age 6, state invitationals, path to Pinehurst Worlds", scan: "US Kids Golf local tour schedule Alabama Florida Mississippi" },
   { name: "Dixie Section PGA", url: "https://dixie.pga.com", states: ["AL"], cat: "Alabama PGA section junior series + Junior PGA Championship qualifying", scan: "Dixie Section PGA junior tour schedule" },
-  { name: "Gulf States PGA", url: "https://gulfstates.pga.com", states: ["MS"], cat: "Mississippi/Louisiana PGA section junior series + qualifying", scan: "Gulf States PGA section junior golf schedule" },
+  { name: "Gulf States PGA", url: "https://gulfstates.pga.com", states: ["MS", "LA"], cat: "Mississippi/Louisiana PGA section junior series + qualifying", scan: "Gulf States PGA section junior golf schedule" },
   { name: "North & South Florida PGA Junior Tours", url: "https://www.pga.com", states: ["FL"], cat: "Florida's two PGA section junior tours", scan: "North Florida PGA junior tour and South Florida PGA junior tour schedule" },
   { name: "FCWT Junior Golf Tour", url: "https://www.fcwtgolf.com", states: ["FL"], cat: "College-prep tour, Florida-heavy schedule, divisions from age 9", scan: "FCWT junior golf tour Florida schedule" },
   { name: "PKB Girls Golf Tour", url: "https://www.pkbgt.org", states: ["all"], cat: "Largest girls-only ranked tour, Southeast schedule", scan: "PKB girls golf tour Southeast schedule" },

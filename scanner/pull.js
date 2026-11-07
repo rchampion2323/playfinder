@@ -19,6 +19,7 @@ import { fileURLToPath } from "node:url";
 import { PULL_SOURCES, STATES, HORIZON_DAYS } from "./sources.js";
 import { validate, flags, slug } from "./normalize.js";
 import { geocode, saveGeocache } from "./geocode.js";
+import { classify } from "../src/data/region.js";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(here, "..");
@@ -87,13 +88,17 @@ for (const source of sources) {
     for (const k of Object.keys(totals)) totals[k] += usage[k] || 0;
 
     const kept = [];
-    let dropped = 0, heldHere = 0;
+    let dropped = 0, heldHere = 0, outside = 0;
     for (const raw of tournaments) {
       const v = validate(raw, source, today);
       if (!v.ok) { dropped++; continue; }
       const e = v.event;
       if (!STATES.includes(e.state) || rejected.has(e.id)) continue;
       Object.assign(e, (await geocode(e.city, e.state)) || { lat: null, lng: null });
+      // Outside PlayFinder's Gulf Coast definition (src/data/region.js)? Leave it out —
+      // unless we couldn't place it, in which case the review flag below catches it.
+      e.region = classify(e);
+      if (!e.region && e.lat != null) { outside++; continue; }
       e.lastVerified = new Date().toISOString();
       const why = flags(e, prevByName.get(`${source.name}|${slug(e.name)}`), today);
       if (why.length && !approved.has(e.id)) { held.push({ ...e, flags: why }); heldHere++; continue; }
@@ -110,7 +115,7 @@ for (const source of sources) {
     } else {
       published.push(...kept);
       sourceStatus.set(source.name, { name: source.name, ok: true, checked: new Date().toISOString(), count: kept.length, note: notes });
-      console.log(`✔ ${kept.length} published, ${heldHere} held, ${dropped} rejected`);
+      console.log(`✔ ${kept.length} published, ${heldHere} held, ${dropped} rejected, ${outside} outside the region`);
     }
     pulledNames.add(source.name);
   } catch (err) {
@@ -125,7 +130,8 @@ for (const source of sources) {
 for (const [name, list] of bySource) if (!pulledNames.has(name)) published.push(...list);
 
 const live = published
-  .filter((t) => (t.endDate || t.startDate) >= today && !rejected.has(t.id))
+  .map((t) => (t.region ? t : { ...t, region: classify(t) }))
+  .filter((t) => t.region && (t.endDate || t.startDate) >= today && !rejected.has(t.id))
   .sort((a, b) => a.startDate.localeCompare(b.startDate) || a.name.localeCompare(b.name));
 
 const [inRate, outRate] = RATES[MODEL] || RATES["claude-opus-5-5"];

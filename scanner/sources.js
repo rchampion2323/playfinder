@@ -7,6 +7,7 @@
 // public dated schedules.
 
 import { SOURCES } from "../src/data/sources.js";
+import { STATES as REGION_STATES } from "../src/data/region.js";
 
 const CONFIG = {
   "HJGT (Hurricane Junior Golf Tour)": { id: "hjgt", short: "HJGT", type: "ranked",
@@ -15,11 +16,12 @@ const CONFIG = {
     notes: "This page links to one page per state (e.g. /tournament-locations/alabama/). Read the Alabama and Florida pages (there is no Mississippi page). Dates there omit the year: use the next occurrence on or after today." },
   "SJGT (Southeastern Junior Golf Tour)": { id: "sjgt", short: "SJGT", type: "ranked" },
   "US Kids Golf": { id: "uskids", short: "US Kids Golf", type: "entry",
-    notes: "Local tours list events per tour; open the Gulf Coast-area local tours (Mobile, Baldwin County, Pensacola/Emerald Coast, Gulf Coast MS, Birmingham, Montgomery)." },
+    notes: "Local tours list events per tour; open the Gulf Coast-area local tours (Mobile, Baldwin County, Pensacola/Emerald Coast, Panama City, Gulf Coast MS, New Orleans/Northshore) plus the AL/FL/MS/LA State Invitationals." },
   "AJGA": { id: "ajga", short: "AJGA", type: "national" },
   "FSGA / Florida Junior Tour": { id: "fsga", short: "FJT", type: "ranked" },
   "Alabama Golf Association": { id: "aga", short: "AGA", type: "championship" },
   "Mississippi Golf Association": { id: "mga", short: "MGA", type: "championship" },
+  "Louisiana Golf Association": { id: "lga", short: "LGA", type: "championship" },
   "Emerald Coast Junior Golf Tour": { id: "ecjgt", short: "Emerald Coast JGT", type: "entry" },
   "Dixie Section PGA": { id: "dixie-pga", short: "Dixie PGA", type: "ranked" },
   "Gulf States PGA": { id: "gulf-states-pga", short: "Gulf States PGA", type: "ranked" },
@@ -53,5 +55,7 @@ export const PULL_SOURCES = SOURCES
   .filter((s) => !SKIP.has(s.name))
   .map((s) => ({ ...s, ...(CONFIG[s.name] || { id: s.name, short: s.name, type: "ranked" }) }));
 
-export const STATES = (process.env.PULL_STATES || "AL,FL,MS").split(",").map((s) => s.trim().toUpperCase());
+export const STATES = process.env.PULL_STATES
+  ? process.env.PULL_STATES.split(",").map((s) => s.trim().toUpperCase())
+  : REGION_STATES;
 export const HORIZON_DAYS = Number(process.env.PULL_HORIZON_DAYS || 365);
